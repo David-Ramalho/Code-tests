@@ -13,7 +13,7 @@ struct InfoPaciente{
 	char vacinaNome[50];
 	char loteNum[10];
 	char data[20];
-	int vetCPF;
+	long int vetCPF;
 	int cod;	
 	
 };
@@ -23,10 +23,11 @@ FILE * arq;
 void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]);
 
 /* Declaração da da função que consulta pelo CPF*/
-void CPFConsulta(int qtd, int acharCPF, int j, struct InfoPaciente paciente[j]);
+void CPFConsulta(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]);
 
 void Dev();
 void dev_fun();
+void old_system();
 
 	
 
@@ -35,12 +36,12 @@ int main(int argc, char *argv[]) {
 	
 	int i,j=0;
 	int qtd;
-	struct InfoPaciente paciente[j];
-	int acharCPF;	
+	struct InfoPaciente paciente[10000];
+	long int acharCPF;	
 	
-	qtd=0;
-	Relatorio(qtd,j,paciente);
-	system("cls");
+	qtd=0;	
+	system("cls");	
+	
 	
 	/* laço while que controla o menu */	
 	while(i!=4){
@@ -79,7 +80,7 @@ int main(int argc, char *argv[]) {
 			gets(paciente[j].nome);
 			
 			printf("Qual o CPF do paciente?\n");
-			scanf("%d", &paciente[j].vetCPF);
+			scanf("%lld", &paciente[j].vetCPF);
 			fflush(stdin);
 			
 			printf("Qual o nome da vacina?\n");
@@ -144,7 +145,7 @@ int main(int argc, char *argv[]) {
 		
 		printf("\n***ESSA ÁREA É RESTRITA A DESENVOLVEDORES***.\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n\n");
 		system("pause");
-		Dev(d);
+		Dev(d,qtd,j, paciente);
 		system("pause");
 		}
 		
@@ -181,15 +182,22 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]){
 			}
 			
 			/* Leitura de banco de dados*/
-			while(!feof(arq)){																					
-					if(fread(paciente, sizeof(struct InfoPaciente), 1, arq)==1);
-					printf("\nNome Paciente:\n%s\nNome da Vacina:\n%s\nNúmero de Lote:\n%s", paciente[1].nome, paciente[j].vacinaNome,paciente[j].loteNum);
+			while(!feof(arq)){	
+				int QTD;
+				printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\BANCO DE DADOS WARNING\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+				printf("\n*************************Na atual versão não recomendamos mais que 5 por vez*************");
+				printf("\n\nQuantos registros queres pesquisar?\n");
+				scanf("%d",&QTD);
+				
+				for(j=0;j<QTD;j++){																														
+					if(fread(paciente, sizeof(struct InfoPaciente), QTD, arq)==QTD);
+					printf("\nNome Paciente:\n%s\nNome da Vacina:\n%s\nNúmero de Lote:\n%s", paciente[j].nome, paciente[j].vacinaNome,paciente[j].loteNum);
 					printf("\nData da aplicação:\n%s \nCódigo de antendimento:\n%d \n",paciente[j].data,paciente[j].cod );
-		
-		}
+				}		
+			}
 				
 				
-				if(arq==qtd){
+				if(arq==NULL){
 		 		system("cls");
 				printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\BANCO DE DADOS\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
 				printf("\nO arquivo não foi aberto!\n***************************ERROR*************");
@@ -205,22 +213,23 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]){
  
  
  /* Escopo da função que consulta pelo CPF */
- void CPFConsulta(int qtd, int acharCPF, int j, struct InfoPaciente paciente[j]){
-	int i,cpf =0;
+ void CPFConsulta(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]){
+	long int cpf =0;
+	int i;
 	if(qtd==0){
 			printf("\nNão existem pacientes cadastrados!\n\n");
 		}
 		else{
 		
 		printf("\nDigite o número do CPF do paciente:\n");
-		scanf("%d", &acharCPF);
+		scanf("%lld", &acharCPF);
 		
 		
 			for(j=0;j<qtd;j++){			
 				if(acharCPF == paciente[j].vetCPF){
 				printf("\nCódigo: %d\n", paciente[j].cod);
 				printf("\nNome: %s\n", paciente[j].nome);
-				printf("\nCPF: %d\n", paciente[j].vetCPF);
+				printf("\nCPF: %lld\n", paciente[j].vetCPF);
 				printf("\nVacina: %s\n", paciente[j].vacinaNome);
 				printf("\nLote: %s\n", paciente[j].loteNum);
 				printf("\nData da aplicação:\n %s\n", paciente[j].data);
@@ -248,7 +257,7 @@ system("cls");
 printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Developers' Mode!*'\\\\\\\\\\\\\\\\\\\\\\\\\n");
 printf("\nEssa função contém informações para desenvolvedores.\n\n");
 printf("Escolha as opções abaixo:\n");
-printf("1-Teste de banco\n2-checagem de arquivos\n3-Funcionalidades sendo desenvolvidas\n4-***\n\n");
+printf("1-Teste de banco\n2-checagem de arquivos\n3-Funcionalidades sendo desenvolvidas\n4-Troca de Bios\n5-***\n\n");
 scanf("%d", &d);
 		
 	if(d==1){
@@ -277,9 +286,9 @@ scanf("%d", &d);
 			system("cls");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Developers' Mode!*'\\\\\\\\\\\\\\\\\\\\\\\\\n");
 			printf("\nAtualmente o projeto está desenvolvendo as funções de banco\nMais novidades em breve!\n\n");
-		}
+		}			
 		
-		if(d==4){
+		if(d==5){
 			system("cls");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Developers' Mode(TEST BASE)!*'\\\\\\\\\\\\\\\\\\\\\\\\\n");
 			printf("\nSendo desenvolvido\n");
@@ -287,12 +296,27 @@ scanf("%d", &d);
 			dev_fun();
 		}
 		
+		if(d==4){
+			int b;
+			system("cls");
+			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Developers' Mode(BIOS||BIOS||BIOS)!*'\\\\\\\\\\\\\\\\\\\\\\\\\n");
+			
+			printf("\n\n***Escolha a opção abaixo\n:");
+			printf("\n1-BaseProdAtual\n2-BaseProdAntiga\n");
+			scanf("%d", &b);
+			
+			if(b==2){
+				void old_system();
+			}
+			 old_system();
+		}
+		
 		
 }
 
 void dev_fun(){	
 int i;
-	printf("\n\nDEV-FUN\nERROR**ERRO***ERROR**404\N\n\nEm desenvolvimento\n");
+	printf("\n\nDEV-FUN\nERROR**ERRO***ERROR**404\n\n\nEm desenvolvimento\n");
 	printf("\n\nEnter this testing function at your own risk\n\nPress anything to\n");		
 	system("pause");
 	
@@ -302,6 +326,194 @@ int i;
 		printf("\n***************EXITING INFINITE LOOPING ERROR8734BRF***************\n");
 	}
 }
+	
+
+
+
+//***old system**careful***	*****************************************
+void old_system(){
+
+/* Declaração da struct que irá armazenar os dados do paciente */
+
+struct InfoPaciente{
+	char nome[50];
+	char vacinaNome[50];
+	char loteNum[10];
+	char data[20];
+	int long vetCPF;
+	int cod;	
+	
+};
+
+
+
+
+
+
+	
+	int i,j;
+	int qtd;
+	struct InfoPaciente paciente[j];
+	long int acharCPF;	
+	
+	qtd=0;
+	
+	/* laço while que controla o menu */	
+	while(i!=4){
+		system("cls");
+		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful/Controle de vacinação/old system**careful\\\\\\\\\\\\\\\\\\\\\\\\\n");
+		printf("\nDigite para as seguintes opções:");
+		printf("\n1-cadastrar Vacina\n2-Relatório geral\n3-consultar por CPF\n4-sair\n");
+		scanf("%d", &i);
+				
+		/* Declaração dos IFs das opções do menu*/
+		if(i==1){
+			
+			system("cls");
+			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Cadastrando Paciente\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			
+			printf("Quantas Pessoas gostaria de cadastrar?\n");
+			scanf("%d", &qtd);
+			fflush(stdin);
+			system("cls");
+			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Cadastrando Paciente\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			
+			/* looping para controlar quantos pacientes são cadastrados*/
+			for(j=0;j<qtd;j++){		
+			printf("\n*Cadastro pessoa número %d\n\n", j+1);			
+			printf("\nDigite nome e sobrenome:\n\n");
+			gets(paciente[j].nome);
+			
+			printf("Qual o CPF do paciente?\n");
+			scanf("%lld", &paciente[j].vetCPF);
+			fflush(stdin);
+			
+			printf("Qual o nome da vacina?\n");
+			gets(paciente[j].vacinaNome);
+			printf("Qual o número do lote da vacina?\n");
+			gets(paciente[j].loteNum);
+			
+			printf("Data de aplicação:\n");
+			gets(paciente[j].data);
+			
+			paciente[j].cod=j+1;
+			system("cls");
+		}
+			
+			system("pause");			
+		}	
+	
+		else if(i==2){
+		system("cls");
+		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Relatório geral\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n");
+		
+		Relatorio1(qtd,j,paciente);
+		
+		system("pause");			
+		}
+		
+		else if(i==3){
+		system("cls");
+		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Consulta Por CPF\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n");
+		
+		CPFConsulta1(qtd, acharCPF, j, paciente);
+						
+		system("pause");			
+		}	
+		
+		else if(i==4){
+		system("cls");
+		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\ exiting...\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n");
+		system("pause");			
+		}	
+		
+		else{
+			system("cls");
+			printf("Opção inválida!! Tente novamente\n");
+			system("pause");
+		}
+			
+		
+	}	
+	
+	
+	system("pause");
+	return ;
+}
+
+
+
+/* Escopo da função que gera relatórios */
+void Relatorio1(int  qtd, int j, struct InfoPaciente paciente[j]){
+ 	
+ 	if(qtd==0){
+			printf("\nNão existem pacientes cadastrados\n\n");
+		}
+		
+		else{
+			system("cls");
+			/* Laço for para pecorrer o array com as informações dos pacientes cadastrados*/
+			for(j=0;j<qtd;j++){
+				
+				printf("\n\n     Paciente número %d\n", j+1);
+				printf(" ==================================");
+			
+				printf("\nCódigo: %d\n", paciente[j].cod);
+				printf("\nNome: %s\n", paciente[j].nome);
+				printf("\nCPF: %lld\n", paciente[j].vetCPF);
+				printf("\nVacina: %s\n", paciente[j].vacinaNome);
+				printf("\nLote: %s\n", paciente[j].loteNum);
+				printf("\nData da aplicação\n: %s\n", paciente[j].data);
+			
+		
+		}
+	}
+ 
+ return;
+ }
+ 
+ 
+ 
+ /* Escopo da função que consulta pelo CPF */
+ void CPFConsulta1(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]){
+		int i,cpf =0;
+	if(qtd==0){
+			printf("\nNão existem pacientes cadastrados!\n\n");
+		}
+		else{
+		
+		printf("\nDigite o número do CPF do paciente:\n");
+		scanf("%lld", &acharCPF);
+		
+		
+			for(j=0;j<qtd;j++){			
+				if(acharCPF == paciente[j].vetCPF){
+				printf("\nCódigo: %d\n", paciente[j].cod);
+				printf("\nNome: %s\n", paciente[j].nome);
+				printf("\nCPF: %lld\n", paciente[j].vetCPF);
+				printf("\nVacina: %s\n", paciente[j].vacinaNome);
+				printf("\nLote: %s\n", paciente[j].loteNum);
+				printf("\nData da aplicação:\n %s\n", paciente[j].data);
+				acharCPF=-2;
+											
+				}
+			}
+				if(acharCPF!=-2){
+					printf("\nPaciente não tem registro\n\n");
+				}
+				if(acharCPF==-1){
+					system("cls");
+					printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\System Failure\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+					printf("\n\n***Algum erro desconhecido ocorreu***\n\nContate seu T.I\n");
+				}
+			}
+				
+			 return;
+			}
+		
+	
+
+
 	
 
 
