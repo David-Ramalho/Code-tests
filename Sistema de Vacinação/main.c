@@ -68,10 +68,15 @@ int main(int argc, char *argv[]) {
 			else{	
 			j=0;			
 			printf("Quantas Pessoas gostaria de cadastrar?\n");
-			scanf("%d", &qtd);
+			scanf("%d", &qtd);			
 			fflush(stdin);
 			system("cls");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Cadastrando Paciente\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			if(qtd==0){
+				qtd= qtd+1;
+				printf("\nExiting\n");
+			}
+			else{
 			
 			/* looping para controlar quantos pacientes são cadastrados*/
 			for(j=0;j<qtd;j++){		
@@ -111,12 +116,15 @@ int main(int argc, char *argv[]) {
 			
 			system("pause");			
 		}
+	}
 		fclose(arq);	
 	}
-	
+
 		else if(i==2){
 		system("cls");
 		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Relatório geral\\\\\\\\\\\\\\\\\\\\\\\\\n");
+		printf("\n\n***Carregando Arquivos***\n:");
+		sleep(3);
 		
 		Relatorio(qtd,j,paciente);
 		
@@ -191,7 +199,7 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]){
 				
 				for(j=0;j<QTD;j++){																														
 					if(fread(paciente, sizeof(struct InfoPaciente), QTD, arq)==QTD);
-					printf("\nNome Paciente:\n%s\nNome da Vacina:\n%s\nNúmero de Lote:\n%s", paciente[j].nome, paciente[j].vacinaNome,paciente[j].loteNum);
+					printf("\nNome Paciente:\n%s\nCPF: \n%lld\nNome da Vacina:\n%s\nNúmero de Lote:\n%s", paciente[j].nome, paciente[j].vetCPF,paciente[j].vacinaNome,paciente[j].loteNum);
 					printf("\nData da aplicação:\n%s \nCódigo de antendimento:\n%d \n",paciente[j].data,paciente[j].cod );
 				}		
 			}
@@ -272,6 +280,13 @@ scanf("%d", &d);
 			system("cls");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\**DEV MODE**\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\**BANCO DE DADOS**\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			printf("\nTestando Arquivos Binários do banco...\n\n");
+			sleep(5);
+			system("cls");
+			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\**BANCO DE DADOS**\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			printf("\nGravando informações...!\n\n");
+			sleep(5);
+			system("cls");
 			printf("\nBanco de dados sem erros!\n\n");
 			}
 			fclose(arq);
@@ -304,6 +319,8 @@ scanf("%d", &d);
 			printf("\n\n***Escolha a opção abaixo\n:");
 			printf("\n1-BaseProdAtual\n2-BaseProdAntiga\n");
 			scanf("%d", &b);
+			printf("\n\nCarregando Arquiv\n:");
+			sleep(5);
 			
 			if(b==2){
 				void old_system();
@@ -335,7 +352,7 @@ void old_system(){
 
 /* Declaração da struct que irá armazenar os dados do paciente */
 
-struct InfoPaciente{
+struct InfoPaciente1{
 	char nome[50];
 	char vacinaNome[50];
 	char loteNum[10];
@@ -344,16 +361,10 @@ struct InfoPaciente{
 	int cod;	
 	
 };
-
-
-
-
-
-
 	
 	int i,j;
 	int qtd;
-	struct InfoPaciente paciente[j];
+	struct InfoPaciente1 paciente[j];
 	long int acharCPF;	
 	
 	qtd=0;
@@ -438,7 +449,8 @@ struct InfoPaciente{
 	
 	
 	system("pause");
-	return ;
+	
+	return 0;
 }
 
 
