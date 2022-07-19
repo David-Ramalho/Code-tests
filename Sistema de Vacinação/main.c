@@ -6,7 +6,10 @@
 #include <time.h>
 
 
-/* Declaração da struct que irá armazenar os dados do paciente */
+/* Declaração da struct que irá armazenar os dados do paciente 
+
+This program was made by David T. Ramalho.*/
+
 
 struct InfoPaciente{
 	char nome[50];
@@ -529,4 +532,4 @@ void Relatorio1(int  qtd, int j, struct InfoPaciente paciente[j]){
 	
 
 
-
+/*This program was made by David T. Ramalho.*/
