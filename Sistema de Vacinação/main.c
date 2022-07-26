@@ -28,6 +28,7 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]);
 /* Declaração da da função que consulta pelo CPF*/
 void CPFConsulta(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]);
 
+/* Declaração funções DEV*/
 void Dev();
 void dev_fun();
 void old_system();
@@ -36,6 +37,12 @@ void old_system();
 
 int main(int argc, char *argv[]) {	
 	setlocale(LC_ALL, "Portuguese");
+	printf("\nCarregando Arquivos do sistema\n:\n");
+	sleep(2);
+	printf("\nCarregando Arquivos de banco de dados\n:\n");
+	sleep(2);
+	printf("\nC Verificando criptografia\n:\n");
+	sleep(3);
 	
 	int i,j=0;
 	int qtd;
@@ -304,6 +311,7 @@ scanf("%d", &d);
 			system("cls");
 			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Developers' Mode!*'\\\\\\\\\\\\\\\\\\\\\\\\\n");
 			printf("\nAtualmente o projeto está desenvolvendo as funções de banco\nMais novidades em breve!\n\n");
+			printf("\n\nO ideal futuramente é mudar as funções do sistema antigo para .old\n\n");
 		}			
 		
 		if(d==5){
@@ -344,6 +352,7 @@ int i;
 		
 		printf("\n***************This mode will have pre alpha functions***************\n");
 		printf("\n***************EXITING INFINITE LOOPING ERROR8734BRF***************\n");
+		
 	}
 }
 	
@@ -457,7 +466,7 @@ struct InfoPaciente1{
 }
 
 
-
+/* O ideal futuramente é mudar as funções do sistema antigo para .old*/
 /* Escopo da função que gera relatórios */
 void Relatorio1(int  qtd, int j, struct InfoPaciente paciente[j]){
  	
