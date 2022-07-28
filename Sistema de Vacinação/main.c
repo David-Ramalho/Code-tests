@@ -6,11 +6,11 @@
 #include <time.h>
 
 
-/* Declaração da struct que irá armazenar os dados do paciente 
+/* This program was made by David T. Ramalho.
 
-This program was made by David T. Ramalho.*/
+Declaração da struct que irá armazenar os dados do paciente*/
 
-
+ 
 struct InfoPaciente{
 	char nome[50];
 	char vacinaNome[50];
@@ -132,9 +132,7 @@ int main(int argc, char *argv[]) {
 
 		else if(i==2){
 		system("cls");
-		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Relatório geral\\\\\\\\\\\\\\\\\\\\\\\\\n");
-		printf("\n\n***Carregando Arquivos***\n:");
-		sleep(3);
+		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Relatório geral\\\\\\\\\\\\\\\\\\\\\\\\\n");				
 		
 		Relatorio(qtd,j,paciente);
 		
@@ -199,20 +197,22 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]){
 				printf("\nO arquivo não foi aberto!\n***************************ERROR*************");
 			}
 			
-			/* Leitura de banco de dados*/
-			while(!feof(arq)){	
+			/* Leitura de banco de dados*/			
 				int QTD;
 				printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\BANCO DE DADOS WARNING\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
 				printf("\n*************************Na atual versão não recomendamos mais que 5 por vez*************");
 				printf("\n\nQuantos registros queres pesquisar?\n");
 				scanf("%d",&QTD);
+				printf("\n\n***Carregando Arquivos***\n:");
+				sleep(3);
+				system("cls");
 				
 				for(j=0;j<QTD;j++){																														
 					if(fread(paciente, sizeof(struct InfoPaciente), QTD, arq)==QTD);
 					printf("\nNome Paciente:\n%s\nCPF: \n%lld\nNome da Vacina:\n%s\nNúmero de Lote:\n%s", paciente[j].nome, paciente[j].vetCPF,paciente[j].vacinaNome,paciente[j].loteNum);
 					printf("\nData da aplicação:\n%s \nCódigo de antendimento:\n%d \n",paciente[j].data,paciente[j].cod );
-				}		
-			}
+				}
+				exit;				
 				
 				
 				if(arq==NULL){
@@ -430,7 +430,7 @@ struct InfoPaciente1{
 		system("cls");
 		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Relatório geral\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n");
 		
-		Relatorio1(qtd,j,paciente);
+		Relatorio_old(qtd,j,paciente);
 		
 		system("pause");			
 		}
@@ -439,7 +439,7 @@ struct InfoPaciente1{
 		system("cls");
 		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Consulta Por CPF\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n");
 		
-		CPFConsulta1(qtd, acharCPF, j, paciente);
+		CPFConsulta_old(qtd, acharCPF, j, paciente);
 						
 		system("pause");			
 		}	
@@ -468,7 +468,7 @@ struct InfoPaciente1{
 
 /* O ideal futuramente é mudar as funções do sistema antigo para .old*/
 /* Escopo da função que gera relatórios */
-void Relatorio1(int  qtd, int j, struct InfoPaciente paciente[j]){
+void Relatorio_old(int  qtd, int j, struct InfoPaciente paciente[j]){
  	
  	if(qtd==0){
 			printf("\nNão existem pacientes cadastrados\n\n");
@@ -499,7 +499,7 @@ void Relatorio1(int  qtd, int j, struct InfoPaciente paciente[j]){
  
  
  /* Escopo da função que consulta pelo CPF */
- void CPFConsulta1(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]){
+ void CPFConsulta_old(int qtd, long int acharCPF, int j, struct InfoPaciente paciente[j]){
 		int i,cpf =0;
 	if(qtd==0){
 			printf("\nNão existem pacientes cadastrados!\n\n");
