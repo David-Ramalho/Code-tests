@@ -5,6 +5,8 @@
 #include <locale.h>
 #include <time.h>
 
+#define t 10000
+
 
 /* This program was made by David T. Ramalho.
 
@@ -46,7 +48,7 @@ int main(int argc, char *argv[]) {
 	
 	int i,j=0;
 	int qtd;
-	struct InfoPaciente paciente[10000];
+	struct InfoPaciente paciente[t];
 	long int acharCPF;	
 	
 	qtd=0;	
@@ -58,7 +60,7 @@ int main(int argc, char *argv[]) {
 		system("cls");
 		printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Controle de vacinação\\\\\\\\\\\\\\\\\\\\\\\\\n");
 		printf("\nDigite para as seguintes opções:");
-		printf("\n1-cadastrar Vacina\n2-Relatório geral\n3-consultar por CPF\n4-sair\n9-Modo de desenvolvimento**\n");
+		printf("\n1-Cadastrar Vacina\n2-Relatório geral\n3-Consultar por CPF\n4-Sair\n9-Modo de desenvolvimento**\n");
 		scanf("%d", &i);
 				
 		/* Declaração dos IFs das opções do menu*/
@@ -243,14 +245,14 @@ void Relatorio(int  qtd, int j, struct InfoPaciente paciente[j]){
 		scanf("%lld", &acharCPF);
 		
 		
-			for(j=0;j<qtd;j++){			
-				if(acharCPF == paciente[j].vetCPF){
-				printf("\nCódigo: %d\n", paciente[j].cod);
-				printf("\nNome: %s\n", paciente[j].nome);
-				printf("\nCPF: %lld\n", paciente[j].vetCPF);
-				printf("\nVacina: %s\n", paciente[j].vacinaNome);
-				printf("\nLote: %s\n", paciente[j].loteNum);
-				printf("\nData da aplicação:\n %s\n", paciente[j].data);
+			for(i=0;i<t;i++){			
+				if(acharCPF == paciente[i].vetCPF){
+				printf("\nCódigo: %d\n", paciente[i].cod);
+				printf("\nNome: %s\n", paciente[i].nome);
+				printf("\nCPF: %lld\n", paciente[i].vetCPF);
+				printf("\nVacina: %s\n", paciente[i].vacinaNome);
+				printf("\nLote: %s\n", paciente[i].loteNum);
+				printf("\nData da aplicação:\n %s\n", paciente[i].data);
 				acharCPF=-2;
 											
 				}
@@ -393,7 +395,7 @@ struct InfoPaciente1{
 		if(i==1){
 			
 			system("cls");
-			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Cadastrando Paciente\old system**careful\\\\\\\\\\\\\\\\\\\\\\\\n\n");
+			printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\old system**careful\Cadastrando Paciente\old system**careful\\\\\\\\\\\\\\\\\\\\\\\n\n");
 			
 			printf("Quantas Pessoas gostaria de cadastrar?\n");
 			scanf("%d", &qtd);
